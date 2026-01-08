@@ -1,0 +1,856 @@
+:root {
+  --bg: #0b0b0d;
+  --panel: rgba(255, 255, 255, 0.92);
+  --panelSolid: #ffffff;
+
+  --purple: #c9a6ff;  /* zacht lila */
+  --purple2: #5b2a86; /* deep royal purple */
+  --gold: #e6c98f;    /* champagne accent */
+  --white: #f5f5f7;
+
+  --shadow: 0 20px 50px rgba(0,0,0,0.45);
+  --shadowSoft: 0 16px 40px rgba(0,0,0,0.35);
+  --ring: 0 0 0 3px rgba(201,166,255,0.55);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--white);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  user-select: none;
+}
+
+/* APP WRAP */
+.app {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* START SCREEN */
+.start {
+  color: var(--white);
+  cursor: pointer;
+  text-align: center;
+  padding: 28px;
+}
+
+.start h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  margin: 0;
+  letter-spacing: 0.4px;
+}
+
+.start p {
+  margin: 10px 0 0;
+  font-size: 1.4rem;
+  opacity: 0.9;
+}
+
+.start small {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 1rem;
+  opacity: 0.7;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(201,166,255,0.25);
+  backdrop-filter: blur(6px);
+}
+
+.start:hover small {
+  border-color: rgba(201,166,255,0.45);
+}
+
+/* optional: subtiele “floating” */
+@keyframes floaty {
+  50% { transform: translateY(-10px); }
+}
+.start h1 { animation: floaty 2.8s ease-in-out infinite; }
+
+/* FULLSCREEN VIEWPORT */
+.viewport {
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* GAME STAGE */
+.stage {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  background: url("./assets/room.jpg") center / cover no-repeat;
+  transform-origin: top left;
+}
+
+/* UI */
+.topUI {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.pill {
+  background: rgba(255,255,255,0.92);
+  color: #101014;
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 10px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+}
+
+.pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+  border-color: rgba(201,166,255,0.35);
+}
+
+.pill:focus-visible {
+  outline: none;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.22), var(--ring);
+}
+
+.pill.on {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.22), 0 0 0 3px rgba(201,166,255,0.45);
+  border-color: rgba(201,166,255,0.45);
+}
+
+.tiny { font-size: 0.85em; opacity: 0.7; margin-left: 6px; }
+
+/* Bottom hint */
+.bottomHint {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.55);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  border: 1px solid rgba(201,166,255,0.18);
+  backdrop-filter: blur(6px);
+}
+
+/* HOTSPOTS */
+.hotspot {
+  position: absolute;
+  cursor: pointer;
+}
+
+
+
+/* 👇 HOTSPOT POSITIES (1920x1080) */
+/* Bookshelf */
+.bookshelf {
+  top: 300px;
+  left: 1700px;
+  width: 210px;
+  height: 650px;
+}
+
+/* Kitchen */
+.kitchen {
+  top: 125px;
+  left: 390px;
+  width: 520px;
+  height: 625px;
+}
+
+/* Table with magazines */
+.table {
+  top: 900px;
+  left: 325px;
+  width: 440px;
+  height: 180px;
+}
+
+
+
+
+/* Hearts */
+.heart {
+  position: absolute;
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: radial-gradient(circle, rgba(255,255,255,0.98), rgba(201,166,255,0.92));
+  box-shadow: 0 0 18px rgba(201,166,255,0.55), 0 10px 26px rgba(0,0,0,0.22);
+  animation: pulse 1.6s infinite;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.heart:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 22px rgba(201,166,255,0.7), 0 14px 30px rgba(0,0,0,0.25);
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.06); }
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.70);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  padding: 14px;
+}
+
+/* =========================
+   MODAL – ELEGANT / AUDREY
+   ========================= */
+
+.modal {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #faf9fc 100%
+  );
+  color: #14141a;
+
+  padding: 34px 32px 30px;
+  border-radius: 26px;
+
+  max-width: 560px;
+  width: min(560px, calc(100vw - 28px));
+
+  text-align: left;
+  box-shadow:
+    0 30px 70px rgba(0,0,0,0.45),
+    0 10px 30px rgba(0,0,0,0.25);
+
+  animation: modalIn 260ms cubic-bezier(.2,.8,.2,1);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* subtiele gouden rand boven */
+.modal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 26px;
+  right: 26px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    transparent
+  );
+}
+
+/* animatie = zachter dan pop */
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* TITELS */
+.modal h2 {
+  margin: 0 0 10px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.9rem;
+  letter-spacing: 0.4px;
+  text-align: center;
+}
+
+.modal h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  margin: 18px 0 8px;
+}
+
+/* TEKST */
+.modal p {
+  line-height: 1.6;
+  font-size: 1.15rem;
+  margin: 0 0 14px;
+}
+
+/* subtiele divider */
+.modal p + p {
+  margin-top: 10px;
+}
+
+/* hint onderin */
+.hint {
+  display: block;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  font-size: 0.95rem;
+  opacity: 0.7;
+  text-align: center;
+}
+
+/* =========================
+   MODAL CONTENT TYPES
+   ========================= */
+
+/* Photobook */
+.card {
+  display: grid;
+  gap: 14px;
+}
+
+.photo {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 18px 36px rgba(0,0,0,0.22);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.caption {
+  text-align: center;
+  font-style: italic;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.controls button {
+  font-size: 18px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--purple2), var(--purple));
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.2);
+}
+
+.controls button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.pager {
+  font-weight: 800;
+  opacity: 0.75;
+}
+
+/* =========================
+   MAGAZINES MODAL
+   ========================= */
+
+.mag {
+  text-align: left;
+}
+
+.mag h3 {
+  text-align: center;
+  margin-top: 4px;
+}
+
+.magText {
+  white-space: pre-line;
+  line-height: 1.65;
+  font-size: 1.12rem;
+  opacity: 0.95;
+}
+
+/* =========================
+   PRIMARY ACTION
+   ========================= */
+
+.primary {
+  width: 100%;
+  margin-top: 16px;
+  border-radius: 999px;
+  padding: 14px 18px;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+  background: #0b0b0d;
+  color: white;
+  border: 1px solid rgba(201,166,255,0.25);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.28);
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 26px 22px;
+    border-radius: 22px;
+  }
+
+  .photo {
+    height: 240px;
+  }
+
+  .modal h2 {
+    font-size: 1.6rem;
+  }
+}
+
+.modalBody {
+  margin-top: 6px;
+}
+
+
+.hint { display: block; margin-top: 12px; opacity: 0.72; }
+
+/* Photobook */
+.card { display: grid; gap: 12px; }
+
+.photo {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 16px;
+  
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+}
+
+/* “film” randje */
+.photo {
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.caption {
+  margin: 0;
+  font-weight: 600;
+  font-style: italic;
+  opacity: 0.86;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.controls button {
+  font-size: 20px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 0;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--purple2), var(--purple));
+  color: white;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.controls button:hover { transform: translateY(-1px); box-shadow: 0 14px 26px rgba(0,0,0,0.22); }
+
+.controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.controls button:focus-visible { outline: none; box-shadow: 0 14px 26px rgba(0,0,0,0.22), var(--ring); }
+
+.pager { font-weight: 800; opacity: 0.85; }
+
+
+
+
+.note {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(201,166,255,0.14);
+  font-weight: 800;
+  border: 1px solid rgba(91,42,134,0.12);
+}
+
+.note.glow {
+  box-shadow: 0 0 22px rgba(230, 201, 143, 0.55);
+  border-color: rgba(230, 201, 143, 0.45);
+}
+
+/* Magazines */
+.mag {
+  text-align: left;
+}
+
+.mag h3 {
+  margin: 6px 0 8px;
+}
+
+.magText {
+  white-space: pre-line;
+  line-height: 1.55;
+  font-size: 1.1rem;
+  opacity: 0.95;
+}
+
+.magActions { margin-top: 14px; }
+
+.primary {
+  width: 100%;
+  border: 0;
+  border-radius: 16px;
+  padding: 12px 14px;
+  cursor: pointer;
+  background: #0b0b0d;
+  color: white;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+  border: 1px solid rgba(201,166,255,0.18);
+}
+
+.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+  background: #0f0f14;
+}
+
+.primary:focus-visible { outline: none; box-shadow: 0 14px 28px rgba(0,0,0,0.22), var(--ring); }
+
+/* Progress bar */
+.progress {
+  width: 100%;
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.12);
+  overflow: hidden;
+  margin: 12px 0;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.bar {
+  height: 100%;
+  background: linear-gradient(135deg, var(--purple2), var(--purple));
+}
+
+/* Emoji burst */
+.emojiBurst {
+  position: fixed;
+  left: 50%;
+  top: 20%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  animation: burst 900ms ease-out forwards;
+  z-index: 999;
+  pointer-events: none;
+  text-shadow: 0 10px 20px rgba(0,0,0,0.35);
+}
+
+@keyframes burst {
+  0% { opacity: 0; transform: translateX(-50%) translateY(10px) scale(0.9); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(1.05); }
+}
+
+/* Mobile tweak: maak modals iets compacter */
+@media (max-width: 480px) {
+  .modal { padding: 20px; border-radius: 18px; }
+  .photo { height: 240px; }
+}
+
+/* =========================
+   MODAL MENU OVERHAUL
+   ========================= */
+
+.modal section {
+  margin-top: 18px;
+}
+
+.menuGrid {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+
+
+.note {
+  margin-top: 18px;
+  padding: 18px 20px;
+  border-radius: 20px;
+
+  background:
+    linear-gradient(180deg, #faf9fd, #f3f0fa);
+
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.note.glow {
+  box-shadow:
+    0 0 0 2px rgba(230,201,143,0.6),
+    0 0 28px rgba(230,201,143,0.45);
+}
+
+/* =========================
+   MAGAZINE NAVIGATION
+   ========================= */
+
+.mag {
+  text-align: left;
+}
+
+.mag h3 {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.magText {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  padding: 14px 16px;
+
+  background: rgba(0,0,0,0.02);
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.controls {
+  justify-content: center;
+  gap: 14px;
+}
+
+.controls button {
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.primary {
+  margin-top: 18px;
+  padding: 16px 20px;
+  border-radius: 999px;
+
+  background:
+    linear-gradient(135deg, var(--purple2), var(--purple));
+  color: white;
+
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+
+  box-shadow: 0 18px 36px rgba(0,0,0,0.3);
+}
+
+/* =========================
+   MINI GAME UI
+   ========================= */
+
+.progress {
+  height: 16px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.1);
+  overflow: hidden;
+  margin: 18px 0;
+}
+
+.bar {
+  background:
+    linear-gradient(135deg, var(--purple2), var(--purple));
+  transition: width 300ms ease;
+}
+
+.modal p b {
+  font-weight: 900;
+}
+
+/* =========================
+   PHOTOBOOK CONTROLS
+   ========================= */
+
+.controls {
+  margin-top: 10px;
+}
+
+.controls button {
+  min-width: 56px;
+}
+
+/* =========================
+   KITCHEN – HEART UI
+   ========================= */
+
+.kitchenActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 18px 0 22px;
+}
+
+/* Heart-shaped buttons */
+.heartBtn {
+  position: relative;
+  height: 92px;
+  border: 0;
+  cursor: pointer;
+
+  background:
+    radial-gradient(circle at 30% 30%, #ffffff, #f2ecff);
+
+    /* custom heart shape */
+  clip-path: polygon(
+    50% 15%,
+    85% 15%,
+    95% 35%,
+    95% 60%,
+    75% 85%,
+    50% 100%,
+    25% 85%,
+    5% 60%,
+    5% 35%,
+    15% 15%
+  );
+
+
+  box-shadow:
+    0 18px 36px rgba(0,0,0,0.25),
+    0 0 0 2px rgba(201,166,255,0.35);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+  color: #3b1b5a;
+
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.heartBtn span {
+  margin-top: 6px;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.heartBtn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow:
+    0 24px 48px rgba(0,0,0,0.3),
+    0 0 0 3px rgba(201,166,255,0.55);
+}
+
+.heartBtn.on {
+  background:
+    radial-gradient(circle at 30% 30%, #ffffff, #e9dcff);
+  box-shadow:
+    0 0 0 3px rgba(201,166,255,0.55),
+    0 24px 48px rgba(0,0,0,0.3);
+}
+
+/* =========================
+   MESSAGE CARD (MAIN FOCUS)
+   ========================= */
+
+.messageCard {
+  position: relative;
+  padding: 26px 24px;
+  border-radius: 22px;
+
+  background:
+    linear-gradient(180deg, #ffffff, #f7f4ff);
+
+  font-size: 1.25rem;
+  line-height: 1.6;
+  font-weight: 600;
+  text-align: center;
+
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.8),
+    0 18px 36px rgba(0,0,0,0.25);
+}
+
+/* golden accent line */
+.messageCard::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 40px;
+  right: 40px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    transparent
+  );
+}
+
+.messageCard.glow {
+  box-shadow:
+    0 0 0 3px rgba(230,201,143,0.45),
+    0 0 32px rgba(230,201,143,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.85);
+}
+
+/* =========================
+   SECONDARY BUTTON
+   ========================= */
+
+.kbtn.secondary {
+  margin-top: 18px;
+  width: 100%;
+  border-radius: 999px;
+  padding: 14px 18px;
+
+  background: #0b0b0d;
+  color: white;
+
+  font-weight: 900;
+  letter-spacing: 0.3px;
+}
