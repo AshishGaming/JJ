@@ -90,7 +90,7 @@ body {
   position: relative;
   width: 1920px;
   height: 1080px;
-  background: url("/assets/room.jpg") center / cover no-repeat;
+  background: url("./assets/room.jpg") center / cover no-repeat;
   transform-origin: top left;
 }
 
