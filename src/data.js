@@ -1,6 +1,6 @@
 export const photobookPages = [
   {
-    img: "assets/PIC1.JPEG",
+    img: "/JJ/PIC1.JPEG",
     text: "Lieve lieve lieve Jayani, Van harte gefeliciteerd met je 21ste verjaardag lieverd 🥰❤️🥳 waar moet ik beginnen Van een random moment bij een studentencoach meet up, naar onafscheidelijk elke dag samen nieuwe avonturen aangaan ❤️ ik ben echt ontzettend blij dat ik jou heb mogen leren kennen. Ik voelde het direct dat je een leuke lieve eerlijke meid was en ondanks dat ik je bijna niet kende nodigde ik je direct uit voor Halloween. Heb daar geen moment spijt van gehad, van de avonturen op school, tot aan Utrecht tot aan in Amsterdam en alle studie sessie. Ik geniet van elk moment🥰❤️ blijf altijd je mooie lieve zelf❤️ Je weet wat je waard bent en herinner jezelf elke dag dat je het waard bent. Je bent al gewoon 21 jaar meid en dat is een leeftijd om trots op te wezen🥰 ben ongelofelijk blij dat ik de aankomende jaren nog vele herinneringen mag gaan maken. Happy birthday darling 🥰❤️ love you xx Tina"
   },
   {
