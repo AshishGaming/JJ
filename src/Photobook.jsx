@@ -20,7 +20,11 @@ export default function Photobook() {
   return (
     <Modal title="📚 Fotoboek">
       <div className="card">
-        <img className="photo" src={pages[page].img} alt="memory" />
+        <div
+  className="photo"
+  style={{ backgroundImage: `url(${pages[page].img})` }}
+/>
+
         <p className="caption">{pages[page].text}</p>
 
         <div className="controls">
