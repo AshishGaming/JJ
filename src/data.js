@@ -1,7 +1,7 @@
 import pic1 from "./assets/PIC1.jpg";
 import pic2 from "./assets/PIC2.jpg";
-import pic3 from "./assets/PIC3.JPG";
-import pic4 from "./assets/PIC4.JPG";
+import pic3 from "./assets/PIC3.jpg";
+import pic4 from "./assets/PIC4.jpg";
 import pic5 from "./assets/PIC5.jpg";
 
 export const photobookPages = [
