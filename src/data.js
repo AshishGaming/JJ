@@ -1,8 +1,8 @@
-import pic1 from "./assets/PIC1.JPEG";
-import pic2 from "./assets/PIC2.JPEG";
+import pic1 from "./assets/PIC1.JPG";
+import pic2 from "./assets/PIC2.JPG";
 import pic3 from "./assets/PIC3.JPG";
 import pic4 from "./assets/PIC4.JPG";
-import pic5 from "./assets/PIC5.JPEG";
+import pic5 from "./assets/PIC5.JPG";
 
 export const photobookPages = [
   {
